@@ -11,9 +11,9 @@ const App = () => {
     const [gridColumnApi, setGridColumnApi] = useState(null);
 
     const [rowData, setRowData] = useState([
-        {make: "Toyota", model: "Celica", price: 35000},
-        {make: "Ford", model: "Mondeo", price: 32000},
-        {make: "Porsche", model: "Boxter", price: 72000}
+        {name: "Toyota", model: "Celica", price: 35000},
+        {name: "Ford", model: "Mondeo", price: 32000},
+        {name: "Porsche", model: "Boxter", price: 72000}
     ]);
 
     function onGridReady(params) {
@@ -26,7 +26,7 @@ const App = () => {
             <AgGridReact
                 onGridReady={onGridReady}
                 rowData={rowData}>
-                <AgGridColumn field="make"></AgGridColumn>
+                <AgGridColumn field="name"></AgGridColumn>
                 <AgGridColumn field="model"></AgGridColumn>
                 <AgGridColumn field="price"></AgGridColumn>
             </AgGridReact>
