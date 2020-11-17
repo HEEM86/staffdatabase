@@ -1,6 +1,6 @@
 import React from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import Container from 'react-bootstrap/Container';
+import{} Container from 'react-bootstrap/Container';
 
 <Jumbotron fluid>
   <Container>
@@ -12,5 +12,4 @@ import Container from 'react-bootstrap/Container';
   </Container>
 </Jumbotron>
 
-export default Jumbotron;
-export default Container;
+export default [Jumbotron, Container];
