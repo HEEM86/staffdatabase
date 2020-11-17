@@ -1,10 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 import EmployeeDirectory from "./components/directory";
+import Jumbo from "./components/Jumbo";
 
 function App() {
   return (
     <div className="App">
+      <Jumbo/>
       <EmployeeDirectory/>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
