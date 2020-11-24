@@ -5,7 +5,10 @@ import axios from 'axios';
 class EmployeeDirectory extends react.Component {
     render() {
         return (
-            <table class="table">
+
+
+
+<table class="table">
   <thead>
     <tr>
       <th scope="col">image</th>
@@ -89,3 +92,4 @@ class EmployeeDirectory extends react.Component {
 }
 
 export default EmployeeDirectory;
+
