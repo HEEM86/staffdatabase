@@ -5,8 +5,8 @@ function SearchForm(props) {
         <form>
             <div>
                 <input
-                  //onChange={}
-                    //value={}
+                  onChange={props.handleInputChange}
+                    value={props.search}
                     name="search"
                     type="text"
                     className="form-control"
