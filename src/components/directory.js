@@ -18,19 +18,19 @@ class EmployeeDirectory extends react.Component {
     let persons;
     if ("persons" in localStorage) {
       persons = JSON.parse(localStorage.persons);
-      console.log(persons);
+      //console.log(persons);
       this.setState({ persons });
     } else {
       axios.get(`https://randomuser.me/api/?results=15`).then((res) => {
         persons = res.data.results;
         localStorage.persons = JSON.stringify(persons);
-        console.log("testfirst");
+        //console.log("testfirst");
 
-        console.log(persons);
+        //console.log(persons);
         this.setState({ persons });
       });
-      console.log("testsecond");
-      console.log(this.state.persons);
+      //console.log("testsecond");
+      //console.log(this.state.persons);
     }
   }
 
@@ -44,7 +44,7 @@ class EmployeeDirectory extends react.Component {
     } else {
       //name search
       let tempResult = this.state.persons;
-      console.log(tempResult);
+     // console.log(tempResult);
       tempResult = tempResult.filter((person) =>
       person.name.first.toLowerCase().includes(query)
       );
@@ -57,6 +57,71 @@ class EmployeeDirectory extends react.Component {
       this.setState({ queryResults: tempResult });
     }
   };
+
+  handleSort = event => {
+    alert("clicked");
+
+    let tempResult = this.state.queryResults;
+    switch(event) {
+      case "Name":
+        tempResult=tempResult.sort((a,b) => {
+          let comparison = 0;
+          if(a.name>b.name) {
+            comparison=1;
+
+          }else if (a.name<b.name){
+            comparison = -1;
+          }
+          return comparison;
+          //console.log(comparison);
+        });
+        break;
+        case "Email":
+          tempResult=tempResult.sort((a,b) => {
+            let comparison = 0;
+            if(a.email>b.email) {
+              comparison=1;
+  
+            }else if (a.email<b.email){
+              comparison = -1;
+            }
+            return comparison;
+            //console.log(comparison);
+          });
+          break;
+          case "Gender":
+            tempResult=tempResult.sort((a,b) => {
+              let comparison = 0;
+              if(a.gender>b.gender) {
+                comparison=1;
+    
+              }else if (a.gender<b.gender){
+                comparison = -1;
+              }
+              return comparison;
+              //console.log(comparison);
+            });
+            break;
+
+            case "Age":
+              tempResult=tempResult.sort((a,b) => {
+                let comparison = 0;
+                if(a.age>b.age) {
+                  comparison=1;
+      
+                }else if (a.age<b.age){
+                  comparison = -1;
+                }
+                return comparison;
+                //console.log(comparison);
+              });
+              break;
+              default:
+                break;
+    }
+    this.setState({queryResults:tempResult});
+
+  }
 
   handleInputChange = (event) => {
     const value = event.target.value;
@@ -81,11 +146,11 @@ class EmployeeDirectory extends react.Component {
           <thead>
             <tr>
               <th scope="col">image</th>
-              <th scope="col">gender</th>
-              <th scope="col">Firstname</th>
+              <th scope="col">gender<i className=" btn fa fa-fw fa-sort" onClick={()=>this.handleSort("Gender")}></i></th>
+              <th scope="col">Firstname<i className=" btn fa fa-fw fa-sort" onClick={()=>this.handleSort("Name")}></i></th>
               <th scope="col">Lastname</th>
-              <th scope="col">email</th>
-              <th scope="col">Age</th>
+              <th scope="col">email<i className=" btn fa fa-fw fa-sort" onClick={()=>this.handleSort("Email")}></i></th>
+              <th scope="col">Age<i className=" btn fa fa-fw fa-sort" onClick={()=>this.handleSort("Age")}></i></th>
             </tr>
           </thead>
           <tbody>
