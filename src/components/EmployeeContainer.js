@@ -34,6 +34,7 @@ class EmployeeContainer extends Component {
 
 
   searchEmployees = search =>{
+    //   console.log()
     const query = search.toLowerCase();
   if(!query){
       this.setState({queryResults:this.state.results});
@@ -46,7 +47,7 @@ class EmployeeContainer extends Component {
           //search in number
           tempResult = this.state.results.filter(item=> item.phone.includes(query));
       }
-
+    //   console.log(tempResult)
       this.setState({queryResults:tempResult});
   }
 };
