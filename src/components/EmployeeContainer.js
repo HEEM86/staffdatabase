@@ -14,23 +14,29 @@ class EmployeeContainer extends Component {
     this.userInitialize();
   };
 
-  userInitialize = () =>{
-      API.getUsers()
-      .then(res=> {
-          let tempResult = res.data.results;
-          tempResult = tempResult.map(item => ({
-              id: item.id.value,
-              picture: item.picture.large, 
-              name: item.name.first +" "+item.name.last,
-              phone: item.phone,
-              email:item.email,
-              dob: item.dob.date
-            }))
-          this.setState({results:tempResult});
-          this.setState({queryResults:tempResult});
-        })
-      .catch(err=> console.log(err));
-  };
+userInitialize = () =>{
+
+API.getUsers()
+.then(res=> {
+let tempResult = res.data.results;
+
+tempResult = tempResult.map(item => ({
+
+    id: item.id.value,
+    picture: item.picture.large, 
+    name: item.name.first +" "+item.name.last,
+    phone: item.phone,
+    email:item.email,
+    dob: item.dob.date
+
+}))
+
+this.setState({results:tempResult});
+this.setState({queryResults:tempResult});
+
+})
+.catch(err=> console.log(err));
+};
 
 
   searchEmployees = search =>{
@@ -52,3 +58,18 @@ class EmployeeContainer extends Component {
   }
 };
 
+handleSort = event =>{
+console.log("clicked");
+let tempResult =this.state.queryResults;
+switch(event){
+case "Name":
+tempResult=tempResult.sort((a,b)=>{
+let comparison =0;
+if(a.name>b.name){
+comparison= 1;
+}else if (a.name<b.name){
+comparison =-1;
+}
+return comparison;
+});
+break;
