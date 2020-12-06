@@ -1,15 +1,17 @@
-import react from "react";
-import axios from "axios";
-import SearchForm from "./SearchForm";
+import React, { Component } from "react";
+import SearchForm from "./SearchForm.js";
+import ResultList from "./ResultList";
+import API from "../utils/API";
 
-class EmployeeDirectory extends react.Component {
+class EmployeeContainer extends Component {
   state = {
-      persons: [],
-      search: "",
-      queryResults: []
-    };
-   
-  }
+    search: "",
+    results: [],
+    queryResults:[]
+  };
+
+  //image name phone email dob
+    //.picture.large(or medium); .name.first & .name.last; .phone; .email; .dob.date (convert)
 
   componentDidMount() {
     this.userInitialize();
@@ -33,14 +35,12 @@ class EmployeeDirectory extends react.Component {
       .catch(err=> console.log(err));
   };
 
-
-  searchEmployees = (search) => {
-    const query = search.toLowerCase();
-    if (!query) {
-      this.setState({
-        queryResults: this.state.persons.results
-      });
-    }else{
+  searchEmployees = search =>{
+      const query = search.toLowerCase();
+    if(!query){
+        this.setState({queryResults:this.state.results});
+    }
+    else{
         //if search in name
         let tempResult = this.state.results;
         tempResult = tempResult.filter(item => item.name.toLowerCase().includes(query));
@@ -52,121 +52,90 @@ class EmployeeDirectory extends react.Component {
         this.setState({queryResults:tempResult});
     }
   };
-  
 
-  handleSort = event => {
-    alert("clicked");
-
-    let tempResult = this.state.queryResults;
-    switch(event) {
-      case "Name":
-        tempResult=tempResult.sort((a,b) => {
-          let comparison = 0;
-          if(a.name>b.name) {
-            comparison=1;
-
-          }else if (a.name<b.name){
-            comparison = -1;
-          }
-          return comparison;
-          //console.log(comparison);
-        });
-        break;
-        case "Email":
-          tempResult=tempResult.sort((a,b) => {
-            let comparison = 0;
-            if(a.email>b.email) {
-              comparison=1;
-  
-            }else if (a.email<b.email){
-              comparison = -1;
-            }
-            return comparison;
-            //console.log(comparison);
-          });
-          break;
-          case "Gender":
-            tempResult=tempResult.sort((a,b) => {
-              let comparison = 0;
-              if(a.gender>b.gender) {
-                comparison=1;
-    
-              }else if (a.gender<b.gender){
-                comparison = -1;
-              }
-              return comparison;
-              //console.log(comparison);
-            });
-            break;
-
-            case "Age":
-              tempResult=tempResult.sort((a,b) => {
-                let comparison = 0;
-                if(a.age>b.age) {
-                  comparison=1;
-      
-                }else if (a.age<b.age){
-                  comparison = -1;
-                }
-                return comparison;
-                //console.log(comparison);
+  handleSort = event =>{
+      console.log("clicked");
+      let tempResult =this.state.queryResults;
+      switch(event){
+          case "Name":
+              tempResult=tempResult.sort((a,b)=>{
+                  let comparison =0;
+                  if(a.name>b.name){
+                      comparison= 1;
+                  }else if (a.name<b.name){
+                      comparison =-1;
+                  }
+                  return comparison;
               });
               break;
-              default:
+            case "Email":
+                tempResult=tempResult.sort((a,b)=>{
+                    let comparison =0;
+                    if(a.email>b.email){
+                        comparison= 1;
+                    }else if (a.email<b.email){
+                        comparison =-1;
+                    }
+                    return comparison;
+                });
                 break;
-    }
-    this.setState({queryResults:tempResult});
+            case "Phone":
+                tempResult=tempResult.sort((a,b)=>{
+                    let comparison =0;
+                    if(a.phone>b.phone){
+                        comparison= 1;
+                    }else if (a.phone<b.phone){
+                        comparison =-1;
+                    }
+                    return comparison;
+                });
+                break;
+            case "DOB":
+                tempResult=tempResult.sort((a,b)=>{
+                    let comparison =0;
+                    if(a.dob>b.dob){
+                        comparison= 1;
+                    }else if (a.dob<b.dob){
+                        comparison =-1;
+                    }
+                    return comparison;
+                });
+                break;
+            default:
+                break;
 
+      }
+      this.setState({queryResults:tempResult});
   }
 
-  handleInputChange = (event) => {
+
+  handleInputChange = event => {
     const value = event.target.value;
-    this.setState(
-      {
-        search: value,
-      },
-      () => {
-        this.searchEmployees(this.state.search);
-      }
-    );
+    this.setState({
+      search: value
+    },()=>{this.searchEmployees(this.state.search);});
+    
   };
 
   render() {
     return (
       <div>
+        <div className="jumbotron">
+            <h1>Employee Directory</h1>
+
+        </div>
         <SearchForm
           search={this.state.search}
           handleInputChange={this.handleInputChange}
         />
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">image</th>
-              <th scope="col">gender<i className=" btn fa fa-fw fa-sort" onClick={()=>this.handleSort("Gender")}></i></th>
-              <th scope="col">Firstname<i className=" btn fa fa-fw fa-sort" onClick={()=>this.handleSort("Name")}></i></th>
-              <th scope="col">Lastname</th>
-              <th scope="col">email<i className=" btn fa fa-fw fa-sort" onClick={()=>this.handleSort("Email")}></i></th>
-              <th scope="col">Age<i className=" btn fa fa-fw fa-sort" onClick={()=>this.handleSort("Age")}></i></th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.persons.map((person) => (
-              <tr>
-                <td>
-                  <img src={person.picture.medium} width="50" height="75" />
-                </td>
-                <td>{person.gender}</td>
-                <td>{person.name.first}</td>
-                <td>{person.name.last}</td>
-                <td>{person.email}</td>
-                <td>{person.dob.age}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ResultList 
+            results={this.state.queryResults}
+            handleSort={this.handleSort}    
+        />
+
       </div>
     );
   }
 }
 
-export default EmployeeDirectory;
+export default EmployeeContainer;
