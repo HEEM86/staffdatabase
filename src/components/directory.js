@@ -3,60 +3,56 @@ import axios from "axios";
 import SearchForm from "./SearchForm";
 
 class EmployeeDirectory extends react.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  state = {
       persons: [],
       search: "",
-      queryResults: [],
+      queryResults: []
     };
-    //{name sort acending = true}
-    //if sort acending is true toggle sort state base on that property
+   
   }
 
   componentDidMount() {
-    let persons;
-    if ("persons" in localStorage) {
-      persons = JSON.parse(localStorage.persons);
-      //console.log(persons);
-      this.setState({ persons });
-    } else {
-      axios.get(`https://randomuser.me/api/?results=15`).then((res) => {
-        persons = res.data.results;
-        localStorage.persons = JSON.stringify(persons);
-        //console.log("testfirst");
+    this.userInitialize();
+  };
 
-        //console.log(persons);
-        this.setState({ persons });
-      });
-      //console.log("testsecond");
-      //console.log(this.state.persons);
-    }
-  }
+  userInitialize = () =>{
+      API.getUsers()
+      .then(res=> {
+          let tempResult = res.data.results;
+          tempResult = tempResult.map(item => ({
+              id: item.id.value,
+              picture: item.picture.large, 
+              name: item.name.first +" "+item.name.last,
+              phone: item.phone,
+              email:item.email,
+              dob: item.dob.date
+            }))
+          this.setState({results:tempResult});
+          this.setState({queryResults:tempResult});
+        })
+      .catch(err=> console.log(err));
+  };
 
 
   searchEmployees = (search) => {
     const query = search.toLowerCase();
     if (!query) {
       this.setState({
-        queryResults: this.state.persons,
+        queryResults: this.state.persons.results
       });
-    } else {
-      //name search
-      let tempResult = this.state.persons;
-     // console.log(tempResult);
-      tempResult = tempResult.filter((person) =>
-      person.name.first.toLowerCase().includes(query)
-      );
+    }else{
+        //if search in name
+        let tempResult = this.state.results;
+        tempResult = tempResult.filter(item => item.name.toLowerCase().includes(query));
+        if (tempResult.length === 0 ){
+            //search in number
+            tempResult = this.state.results.filter(item=> item.phone.includes(query));
+        }
 
-      if (tempResult.length === 0) {
-        tempResult = this.state.persons.filter((person) =>
-          person.email.includes(query)
-        );
-      }
-      this.setState({ queryResults: tempResult });
+        this.setState({queryResults:tempResult});
     }
   };
+  
 
   handleSort = event => {
     alert("clicked");
