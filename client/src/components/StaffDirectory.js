@@ -10,8 +10,7 @@ class EmployeeContainer extends Component {
     queryResults:[]
   };
 
-  //image name phone email dob
-    //.picture.large(or medium); .name.first & .name.last; .phone; .email; .dob.date (convert)
+ 
 
   componentDidMount() {
     this.userInitialize();
@@ -41,11 +40,11 @@ class EmployeeContainer extends Component {
         this.setState({queryResults:this.state.results});
     }
     else{
-        //if search in name
+        
         let tempResult = this.state.results;
         tempResult = tempResult.filter(item => item.name.toLowerCase().includes(query));
         if (tempResult.length === 0 ){
-            //search in number
+            
             tempResult = this.state.results.filter(item=> item.phone.includes(query));
         }
 

@@ -8,7 +8,7 @@ class Jumbo extends Component{
     return(
       <Jumbotron fluid>
         <Container>
-          <h1>The Employee Directory</h1>
+          <h1>The React Employee Directory</h1>
           <p>
             This Directory can search first name and sort the age and gender
           </p>
