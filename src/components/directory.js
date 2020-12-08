@@ -1,6 +1,6 @@
 import react from "react";
 import axios from "axios";
-import SearchForm from "./SearchForm";
+import SearchForm from "./SearchElement";
 
 class EmployeeDirectory extends react.Component {
   constructor(props) {
