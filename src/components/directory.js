@@ -35,28 +35,28 @@ class EmployeeDirectory extends react.Component {
   }
 
 
-  searchEmployees = (search) => {
-    const query = search.toLowerCase();
-    if (!query) {
-      this.setState({
-        queryResults: this.state.persons,
-      });
-    } else {
-      //name search
-      let tempResult = this.state.persons;
-     // console.log(tempResult);
-      tempResult = tempResult.filter((person) =>
-      person.name.first.toLowerCase().includes(query)
-      );
+  // searchEmployees = (search) => {
+  //   const query = search.toLowerCase();
+  //   if (!query) {
+  //     this.setState({
+  //       queryResults: this.state.persons,
+  //     });
+  //   } else {
+  //     //name search
+  //     let tempResult = this.state.persons;
+  //    // console.log(tempResult);
+  //     tempResult = tempResult.filter((person) =>
+  //     person.name.first.toLowerCase().includes(query)
+  //     );
 
-      if (tempResult.length === 0) {
-        tempResult = this.state.persons.filter((person) =>
-          person.email.includes(query)
-        );
-      }
-      this.setState({ queryResults: tempResult });
-    }
-  };
+  //     if (tempResult.length === 0) {
+  //       tempResult = this.state.persons.filter((person) =>
+  //         person.email.includes(query)
+  //       );
+  //     }
+  //     this.setState({ queryResults: tempResult });
+  //   }
+  // };
 
   // handleSort = event => {
   //   alert("clicked");
