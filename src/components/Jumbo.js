@@ -8,10 +8,9 @@ class Jumbo extends Component{
     return(
       <Jumbotron fluid>
         <Container>
-          <h1>Fluid jumbotron</h1>
+          <h1>The Employee Directory</h1>
           <p>
-            This is a modified jumbotron that occupies the entire horizontal space of
-            its parent.
+            This Directory can search first name and sort the age and gender
           </p>
         </Container>
       </Jumbotron>
