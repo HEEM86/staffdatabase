@@ -56,6 +56,7 @@ class EmployeeContainer extends Component {
       console.log("clicked");
       let tempResult =this.state.queryResults;
       switch(event){
+        
           case "Name":
               tempResult=tempResult.sort((a,b)=>{
                   let comparison =0;
@@ -66,7 +67,9 @@ class EmployeeContainer extends Component {
                   }
                   return comparison;
               });
+              // console.log(tempResult)
               break;
+              console.log(name)
             case "Email":
                 tempResult=tempResult.sort((a,b)=>{
                     let comparison =0;
