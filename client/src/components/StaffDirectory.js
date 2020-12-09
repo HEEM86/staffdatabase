@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SearchForm from "./SearchForm.js";
 import ResultList from "./ResultList";
-import API from "../utils/API";
+import API from "../client/src/utils/API";
 
 class EmployeeContainer extends Component {
   state = {
@@ -69,7 +69,7 @@ class EmployeeContainer extends Component {
               });
               // console.log(tempResult)
               break;
-              console.log(name)
+              // console.log(name)
             case "Email":
                 tempResult=tempResult.sort((a,b)=>{
                     let comparison =0;
@@ -112,7 +112,7 @@ class EmployeeContainer extends Component {
 
 
   handleInputChange = event => {
-    const value = event.target.value;
+    const value = event.value;
     this.setState({
       search: value
     },()=>{this.searchEmployees(this.state.search);});
