@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import API from '../utils/API.js';
 import SearchForm from "./SearchForm.js";
-import ResultList from "./ResultList";
-import API from "../client/src/utils/API";
+import ResultList from "./ResultsList";
 
-class EmployeeContainer extends Component {
+
+class StaffDirectory extends Component {
   state = {
     search: "",
     results: [],
@@ -140,4 +141,4 @@ class EmployeeContainer extends Component {
   }
 }
 
-export default EmployeeContainer;
+export default StaffDirectory;
