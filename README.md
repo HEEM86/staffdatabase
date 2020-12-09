@@ -25,7 +25,7 @@ Go ahead and fork to your machine. Make sure you run an **npm install**
 
 ## Author :boom:
 
-Ernest Wesson :lighting:
+Ernest Wesson 
 
 LinkedIN: https://www.linkedin.com/in/ernest-wesson-b4183b5a/
 
